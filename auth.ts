@@ -11,6 +11,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       const { pathname } = request.nextUrl;
       const isOnDashboard = pathname.startsWith("/dashboard");
       if (pathname === "/" || isOnDashboard) return !!auth;
+      if (auth && pathname === "/login") {
+        return Response.redirect(new URL("/", request.nextUrl));
+      }
       return true;
     },
   },
